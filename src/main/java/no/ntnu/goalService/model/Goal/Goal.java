@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +30,9 @@ public class Goal {
   @Id @GeneratedValue private UUID id;
 
   private String name;
-  @Column(columnDefinition = "DATE") @JsonFormat(pattern = "yyyy-MM-dd") private LocalDate deadline;
+  @JsonFormat(pattern = "yyyy-MM-dd") private LocalDate deadline;
+  // @JsonFormat(pattern = "yyyy-MM-dd") 
+  private LocalDateTime completionTime;
   private boolean active;
   private String description;
   private BigDecimal amount;

@@ -1,9 +1,14 @@
 package no.ntnu.microService.controller.goal;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import no.ntnu.microService.model.DTO.IncreaseRequest;
+import no.ntnu.microService.model.DTO.IncreaseResponse;
 import no.ntnu.microService.model.DTO.MessageResponse;
+import no.ntnu.microService.model.DTO.SetGoalResponse;
 import no.ntnu.microService.model.DTO.goalDTO.GoalRequest;
 import no.ntnu.microService.model.Goal.Goal;
 import no.ntnu.microService.service.GoalService;
@@ -31,22 +36,24 @@ public class GoalController {
     return "Hello";
   }
 
-  @GetMapping("testGetUser")
-  public String testGetUser() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName();
-    return "TestGetUser: " + username;
-  }
-
   @PostMapping("setGoal")
-  public String setUser(@RequestBody GoalRequest goal) {
-    MessageResponse response = goalService.setGoal(goal);
-    return response.getMessage();
+  public SetGoalResponse setUser(@RequestBody GoalRequest goal) {
+    return goalService.setGoal(goal);
   }
 
   @GetMapping("getActiveGoal")
   public Goal getActiveGoal() {
     Optional<Goal> goal = goalService.getActiveGoal();
     return goal.orElse(new Goal());
+  }
+
+  @PostMapping("increaseProgress")
+  public IncreaseResponse increaseProgress(@RequestBody IncreaseRequest increase) {
+    return goalService.increaseProgress(increase.getAmount());
+  }
+
+  @GetMapping("getAllGoals")
+  public List<Goal> getAllGoals() {
+    return goalService.getAllGoals();
   }
 }

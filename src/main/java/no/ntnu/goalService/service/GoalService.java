@@ -3,10 +3,13 @@ package no.ntnu.microService.service;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Optional;
 import no.ntnu.microService.model.DTO.MessageResponse;
+import no.ntnu.microService.model.DTO.SetGoalResponse;
+import no.ntnu.microService.model.DTO.IncreaseResponse;
 import no.ntnu.microService.model.DTO.goalDTO.GoalRequest;
 import no.ntnu.microService.model.Goal.Goal;
 import no.ntnu.microService.repository.GoalRepository;
@@ -25,7 +28,7 @@ public class GoalService {
   private final GoalRepository goalRepository;
 
   @Transactional
-  public MessageResponse setGoal(GoalRequest request) {
+  public SetGoalResponse setGoal(GoalRequest request) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
     var goal = Goal.builder()
@@ -36,9 +39,9 @@ public class GoalService {
                    .progress(new BigDecimal(0))
                    .active(true)
                    .deadline(request.getDeadline())
+                   .completionTime(LocalDateTime.now())
                    .build();
     try {
-      System.out.println(goal.getDeadline());
       Optional<Goal> currentlyActiveGoal = getActiveGoal();
       if (currentlyActiveGoal.isPresent()) {
         currentlyActiveGoal.get().setActive(false);
@@ -49,7 +52,7 @@ public class GoalService {
       throw new DataIntegrityViolationException("Goal already exists");
     }
 
-    return MessageResponse.builder().message("Goal registered." + goal.getId().toString()).build();
+    return new SetGoalResponse(true, goal.getId());
   }
 
   public Optional<Goal> getActiveGoal() {
@@ -59,27 +62,30 @@ public class GoalService {
     return goalRepository.findActiveGoalByUser(username);
   }
 
-  // @Transactional
-  // public AuthResponse verifyEmail(String token) {
-  //
-  //     var verificationToken = emailverificationTokenService.getVerificationToken(token);
-  //
-  //     if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-  //         throw new IllegalStateException("Token expired");
-  //     }
-  //
-  //     var user = userRepository.findById(verificationToken.getUser().getId())
-  //             .orElseThrow(() -> new IllegalStateException("User not found"));
-  //
-  //     // Check if the user is already enabled
-  //     if (user.isEnabled()) {
-  //         throw new IllegalStateException("Email is already verified");
-  //     }
-  //
-  //     user.setEnabled(true);
-  //     userRepository.save(user);
-  //     var jwtToken = jwtService.generateToken(user);
-  //     return AuthResponse.builder().token(jwtToken).build();
-  //
-  // }
+  @Transactional
+  public IncreaseResponse increaseProgress(BigDecimal amount) {
+    Optional<Goal> goalwrapper = getActiveGoal();
+    IncreaseResponse response = new IncreaseResponse();
+    if (goalwrapper.isPresent()) {
+      Goal goal = goalwrapper.get();
+      goal.setProgress(goal.getProgress().add(amount));
+      response.setAmountIncreased(amount);
+      if (goal.getAmount().compareTo(goal.getProgress()) <= 0) {
+        goal.setActive(false);
+        response.setGoalComplete(true);
+      }
+
+      goalRepository.save(goal);
+      response.setIncreaseSuccessful(true);
+    }
+
+    return response;
+  }
+
+  public List<Goal> getAllGoals() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+
+    return goalRepository.findAllByUsername(username);
+  }
 }

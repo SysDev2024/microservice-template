@@ -15,4 +15,6 @@ public interface GoalRepository extends JpaRepository<Goal, UUID> {
   Optional<Goal> findByUsername(String username);
 
   Optional<Goal> findById(UUID id);
+
+  List<Goal> findAllByUsername(String username);
 }
