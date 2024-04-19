@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/goal")
 @RequiredArgsConstructor
@@ -37,23 +39,23 @@ public class GoalController {
   }
 
   @PostMapping("setGoal")
-  public SetGoalResponse setUser(@RequestBody GoalRequest goal) {
-    return goalService.setGoal(goal);
+  public ResponseEntity<SetGoalResponse> setGoal(@RequestBody GoalRequest goal) {
+    return ResponseEntity.ok(goalService.setGoal(goal));
   }
 
   @GetMapping("getActiveGoal")
-  public Goal getActiveGoal() {
+  public ResponseEntity<Goal> getActiveGoal() {
     Optional<Goal> goal = goalService.getActiveGoal();
-    return goal.orElse(new Goal());
+    return goal.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
   }
 
   @PostMapping("increaseProgress")
-  public IncreaseResponse increaseProgress(@RequestBody IncreaseRequest increase) {
-    return goalService.increaseProgress(increase.getAmount());
+  public ResponseEntity<IncreaseResponse> increaseProgress(@RequestBody IncreaseRequest increase) {
+    return ResponseEntity.ok(goalService.increaseProgress(increase.getAmount()));
   }
 
   @GetMapping("getAllGoals")
-  public List<Goal> getAllGoals() {
-    return goalService.getAllGoals();
+  public ResponseEntity<List<Goal>> getAllGoals() {
+    return ResponseEntity.ok(goalService.getAllGoals());
   }
 }
