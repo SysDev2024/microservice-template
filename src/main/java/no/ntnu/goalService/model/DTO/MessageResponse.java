@@ -1,4 +1,4 @@
-package main.java.no.ntnu.microService.model.DTO.templateDTO;
+package no.ntnu.microService.model.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TemplateResponse {
+public class MessageResponse {
+    private String message;
 
-    private String token;
 }

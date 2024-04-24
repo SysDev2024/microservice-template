@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * Configuration class that sets up the OpenAPI documentation for the BudgetPlan
+ * Configuration class that sets up the OpenAPI documentation for the Sparesti
  * API.
  */
 @Configuration
@@ -33,7 +33,7 @@ public class OpenApiConfig {
         new Info()
             .title("GoalService API")
             .description(
-                "This is the template microservice for the Sparesti webapp. Remember to add a Bearer token when using endpoints")
+                "This is the microservice for the goals for the Sparesti webapp. Remember to add a Bearer token when using endpoints")
             .version("1.0.0");
     openAPI.setInfo(info);
 
@@ -53,4 +53,3 @@ public class OpenApiConfig {
     return openAPI;
   }
 }
-

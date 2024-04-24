@@ -28,13 +28,14 @@ public class SecurityConfiguration {
     http.cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
 
         .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests((authz)
-                                   -> authz
-                                          .requestMatchers("/swagger-ui.html", "/swagger-ui/**",
-                                              "/v3/api-docs/**", "/webjars/**")
-                                          .permitAll()
-                                          .anyRequest()
-                                          .authenticated())
+        .authorizeHttpRequests(
+            (authz)
+                -> authz
+                       .requestMatchers("/swagger-ui.html", "/swagger-ui/**", 
+                           "/v3/api-docs/**", "/webjars/**")
+                       .permitAll()
+                       .anyRequest()
+                       .authenticated())
         .sessionManagement(
             (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider)
