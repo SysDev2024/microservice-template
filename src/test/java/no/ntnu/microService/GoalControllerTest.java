@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -175,7 +176,7 @@ class GoalControllerTest {
                      .contentType(MediaType.APPLICATION_JSON)
                      .content(jsonRequest))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.increaseSuccessful").value(false));
+        .andExpect(jsonPath("$.increaseSuccessful").value(false));
   }
 
   @Test
@@ -185,9 +186,9 @@ class GoalControllerTest {
     goalService.setGoal(goal2);
     mockMvc.perform(get(api + "/getAllGoals"))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", is("Read 5 books")))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[1].name", is("Read 3 books")));
+        .andExpect(jsonPath("$", hasSize(2)))
+        .andExpect(jsonPath("$[0].name", is("Read 5 books")))
+        .andExpect(jsonPath("$[1].name", is("Read 3 books")));
   }
 
   @Test
@@ -202,6 +203,6 @@ class GoalControllerTest {
 
     mockMvc.perform(get(api + "/getActiveGoal"))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Read 5 books"));
+        .andExpect(jsonPath("$.name").value("Read 5 books"));
   }
 }
