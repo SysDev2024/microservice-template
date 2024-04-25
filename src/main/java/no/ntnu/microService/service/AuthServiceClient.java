@@ -1,4 +1,4 @@
-package no.ntnu.microService.service;
+package no.ntnu.microservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

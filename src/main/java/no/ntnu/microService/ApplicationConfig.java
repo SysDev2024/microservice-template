@@ -1,4 +1,4 @@
-package no.ntnu.microService;
+package no.ntnu.microservice;
 
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import no.ntnu.microService.repository.UserRepository;
+import no.ntnu.microservice.repository.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor

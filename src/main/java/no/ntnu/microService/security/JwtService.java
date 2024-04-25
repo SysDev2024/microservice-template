@@ -1,4 +1,4 @@
-package no.ntnu.microService.security;
+package no.ntnu.microservice.security;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -15,7 +15,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import no.ntnu.microService.model.User.User;
+
+import no.ntnu.microservice.model.sharedmodels.user.User;
 
 @Service
 public class JwtService {

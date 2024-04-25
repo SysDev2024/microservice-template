@@ -1,4 +1,4 @@
-package no.ntnu.microService.security;
+package no.ntnu.microservice.security;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import no.ntnu.microService.security.JwtService;
-import no.ntnu.microService.service.AuthServiceClient;
+import no.ntnu.microservice.security.JwtService;
+import no.ntnu.microservice.service.AuthServiceClient;
 
 @Component
 @RequiredArgsConstructor

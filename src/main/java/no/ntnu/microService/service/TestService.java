@@ -1,4 +1,4 @@
-package no.ntnu.microService.service;
+package no.ntnu.microservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

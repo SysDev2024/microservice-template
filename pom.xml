@@ -9,7 +9,7 @@
         <!-- lookup parent from repository -->
     </parent>
     <groupId>no.ntnu</groupId>
-    <artifactId>microService</artifactId>
+    <artifactId>microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>TemplateService</name>
     <description>A Template</description>
@@ -60,6 +60,17 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>

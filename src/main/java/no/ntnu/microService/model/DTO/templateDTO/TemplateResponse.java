@@ -1,4 +1,4 @@
-package main.java.no.ntnu.microService.model.DTO.templateDTO;
+package main.java.no.ntnu.microservice.model.dto.templateDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
