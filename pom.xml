@@ -9,10 +9,10 @@
         <!-- lookup parent from repository -->
     </parent>
     <groupId>no.ntnu</groupId>
-    <artifactId>microservice</artifactId>
+    <artifactId>user-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>TemplateService</name>
-    <description>A Template</description>
+    <name>User Service</name>
+    <description>Service for handling user data</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -144,10 +144,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
